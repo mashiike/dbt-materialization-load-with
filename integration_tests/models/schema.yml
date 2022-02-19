@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: test_load_table__iam_role
+    tests:
+      - dbt_utils.equality:
+          compare_model: "{{ ref('expected') }}"
+
