@@ -6,7 +6,9 @@
   -- The code license for the original dbt-core materialization 'table' is as follows
   -- https://github.com/dbt-labs/dbt-core/blob/v1.0.2/License.md
 -#}
-{% materialization incremental, default -%}
+{% materialization load_incremental, default -%}
+  -- additional required config parameteor
+  {%- do config.require('load_columns') %}
 
   {% set unique_key = config.get('unique_key') %}
 
@@ -70,6 +72,10 @@
   {% endif %}
 
   {% call statement("main") %}
+      -- data load into temporary table
+      {{ materialization_load_with.get_create_and_copy_into_load_temporary_table_sql(load_temp_relation, config) }}
+
+      -- main process
       {{ build_sql }}
   {% endcall %}
 
