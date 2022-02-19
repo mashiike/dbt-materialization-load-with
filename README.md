@@ -89,4 +89,4 @@ Note: In the case of `load_incremental`, it is difficult to switch the config dy
 
 MIT 
 
-However, some of the code from https://github.com/dbt-labs/dbt-core depends on this [license](https://github.com/dbt-labs/dbt-core/blob/v1.0.2/License.md).
+However, some of the code has been modified from https://github.com/dbt-labs/dbt-core, the original license of which is [here](https://github.com/dbt-labs/dbt-core/blob/v1.0.2/License.md)
