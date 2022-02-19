@@ -4,5 +4,13 @@ models:
   - name: test_load_table__iam_role
     tests:
       - dbt_utils.equality:
-          compare_model: "{{ ref('expected') }}"
+          compare_model: "{{ ref('table_expected') }}"
+  - name: test_load_table__credentials
+    tests:
+      - dbt_utils.equality:
+          compare_model: "{{ ref('table_expected') }}"
+  - name: test_load_incremental
+    tests:
+      - dbt_utils.equality:
+          compare_model: "{{ ref('incremental_expected') }}"
 
