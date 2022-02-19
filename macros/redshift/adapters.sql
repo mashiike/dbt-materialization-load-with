@@ -26,14 +26,23 @@
 {%- macro redshift__copy_into_load_temporary_table(relation, config) -%}
   {%- do config.require('from') %}
   {%- set copy_from = config.get('from', validator=validation.any[basestring]) %}
+  {%- if copy_from is not string %}
+    {{ exceptions.raise_compiler_error("Invalid `from`. in "~model['name']~": Got "~copy_from) }}
+  {%- endif %}
   copy {{ relation.include(database=False, schema=False) }}
   from '{{ copy_from }}'
   {%- set aws_iam_role = config.get('iam_role', validator=validation.any[basestring],default=none) %}
   {%- if aws_iam_role is not none %}
+    {%- if aws_iam_role is not string %}
+      {{ exceptions.raise_compiler_error("Invalid `iam_role`. in "~model['name']~": Got "~aws_iam_role) }}
+    {%- endif %}
   iam_role '{{ aws_iam_role }}'
   {%- else %}
-  {%- set aws_credentials = config.get('credentials', validator=validation.any[basestring], default=none) %}
+    {%- set aws_credentials = config.get('credentials', validator=validation.any[basestring], default=none) %}
     {%- if  aws_credentials is not none %}
+      {%- if aws_credentials is not string %}
+        {{ exceptions.raise_compiler_error("Invalid `credentials`. in "~model['name']~": Got "~aws_credentials) }}
+      {%- endif %}
   credentials '{{ aws_credentials }}'
     {%- else %}
       {{ exceptions.raise_compiler_error("Either 'iam_role' or 'credentials' needs to be specified") }}
