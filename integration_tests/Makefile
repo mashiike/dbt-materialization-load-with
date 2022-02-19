@@ -7,7 +7,7 @@ test-redshift:
 	dbt deps
 	dbt seed --target redshift --full-refresh
 	dbt run --target redshift --full-refresh
-	dbt run --target redshift
+	LOAD_INCREMENTAL_TARGET=test_load_incremental.csv dbt run --target redshift
 	dbt test --target redshift
 
 clean:
