@@ -1,6 +1,7 @@
 # dbt-materialization-load-with
 
 A [dbt package](https://docs.getdbt.com/docs/building-a-dbt-project/package-management) for materialization with data loading
+**Note: This is a PoC-like DBT package for Redshift.**
 
 This DBT package mainly provides materialization for Redshift.
 There are two materializations in the package, `load_table` and `load_incremental`.
